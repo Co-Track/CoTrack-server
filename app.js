@@ -1,27 +1,35 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const { isAuthenticated } = require("./middleware/jwt.middleware");
 require("dotenv").config();
 
-// ℹ️ Connects to the database
-require("./db");
+mongoose
+  .connect("mongodb://127.0.0.1:27017/CoTrack-backend")
+  .then((x) => console.log(`Connected to Database: "${x.connections[0].name}"`))
+  .catch((err) => console.error("Error connecting to MongoDB ", err));
 
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
-const express = require("express");
-console.log("daniel was here");
 const app = express();
 
-// ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
+app.use(morgan("dev"));
+app.use(express.static("public"));
+
+app.get("/docs", (req, res) => {
+  res.sendFile(__dirname + "/views/docs.html");
+});
+
 // 👇 Start handling routes here
-const indexRoutes = require("./routes/index.routes");
-app.use("/api", indexRoutes);
+app.use("/api", require("./routes/index.routes"));
+app.use("/api", isAuthenticated, require("./routes/Living.routes"));
+app.use("/api", isAuthenticated, require("./routes/Personal.routes"));
+app.use("/api", isAuthenticated, require("./routes/Emergency.routes"));
+app.use("/auth", require("./routes/auth.routes"));
 
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
-
-// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
+//app.use(errorHandler);
+
+// START SERVER
 module.exports = app;
