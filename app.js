@@ -22,9 +22,9 @@ app.get("/docs", (req, res) => {
 
 // 👇 Start handling routes here
 app.use("/api", require("./routes/index.routes"));
-app.use("/api", isAuthenticated, require("./routes/Living.routes"));
-app.use("/api", isAuthenticated, require("./routes/Personal.routes"));
-app.use("/api", isAuthenticated, require("./routes/Emergency.routes"));
+app.use("/living", isAuthenticated, require("./routes/living.routes"));
+app.use("/personal", isAuthenticated, require("./routes/personal.routes"));
+app.use("/emergency", isAuthenticated, require("./routes/emergency.routes"));
 app.use("/auth", require("./routes/auth.routes"));
 
 require("./error-handling")(app);
