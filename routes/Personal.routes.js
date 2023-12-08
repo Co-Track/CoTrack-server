@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Personal = require("../models/personal.model");
+
+// POST /personal/
 router.post("/personal", (req, res, next) => {
   Personal.create({
     caseName: req.body.caseName,
@@ -16,6 +18,7 @@ router.post("/personal", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/personal", (req, res, next) => {
   Living.find({})
     .then((Personal) => {
@@ -26,6 +29,7 @@ router.get("/personal", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/personal/:personalId", (req, res, next) => {
   Personal.find({ _id: req.params.personalId })
     .populate("Personal")
@@ -36,6 +40,7 @@ router.get("/personal/:personalId", (req, res, next) => {
       next(error);
     });
 });
+
 router.put("/personal/:personalId", (req, res, next) => {
   Personal.findByIdAndUpdate(req.params.personalId)
     .then((PersonalDetails) => {
@@ -45,6 +50,7 @@ router.put("/personal/:personalId", (req, res, next) => {
       next(error);
     });
 });
+
 router.delete("/personal/:personalId", (req, res, next) => {
   Personal.findByIdAndDelete(req.params.personalId)
     .then((PersonalDetails) => {

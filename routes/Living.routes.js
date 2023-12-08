@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Living = require("../models/living.model");
+
 router.post("/", (req, res, next) => {
   Living.create({
     caseName: req.body.caseName,
@@ -9,6 +10,7 @@ router.post("/", (req, res, next) => {
     income: req.body.income,
     outCome: req.body.outCome,
   })
+
     .then((createdLiving) => {
       res.status(201).json(createdLiving);
     })
@@ -16,6 +18,7 @@ router.post("/", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/", (req, res, next) => {
   Living.find({})
     .then((Living) => {
@@ -26,6 +29,7 @@ router.get("/", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/:livingId", (req, res, next) => {
   Living.find({ _id: req.params.livingId })
     .populate("Living")
@@ -36,6 +40,7 @@ router.get("/:livingId", (req, res, next) => {
       next(error);
     });
 });
+
 router.put("/:livingId", (req, res, next) => {
   Living.findByIdAndUpdate(req.params.livingId)
     .then((LivingDetails) => {
@@ -45,6 +50,7 @@ router.put("/:livingId", (req, res, next) => {
       next(error);
     });
 });
+
 router.delete("/:livingId", (req, res, next) => {
   Living.findByIdAndDelete(req.params.livingId)
     .then((LivingDetails) => {

@@ -2,7 +2,8 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const Emergency = require("../models/emergency.model");
 const Living = require("../models/living.model");
-router.post("/emergency", (req, res, next) => {
+
+router.post("/", (req, res, next) => {
   Emergency.create({
     caseName: req.body.caseName,
     inDate: req.body.inDate,
@@ -17,6 +18,7 @@ router.post("/emergency", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/emergency", (req, res, next) => {
   Emergency.find({})
     .then((Emergency) => {
@@ -27,6 +29,7 @@ router.get("/emergency", (req, res, next) => {
       next(error);
     });
 });
+
 router.get("/emergency/:emergencyId", (req, res, next) => {
   Cohort.find({ _id: req.params.emergencyId })
     .populate("Living")
@@ -37,6 +40,7 @@ router.get("/emergency/:emergencyId", (req, res, next) => {
       next(error);
     });
 });
+
 router.put("/emergency/:emergencyId", (req, res, next) => {
   Emergency.findByIdAndUpdate(req.params.emergencyId)
     .then((EmergencyDetails) => {
@@ -46,6 +50,7 @@ router.put("/emergency/:emergencyId", (req, res, next) => {
       next(error);
     });
 });
+
 router.delete("/emergency/:emergencyId", (req, res, next) => {
   Living.findByIdAndDelete(req.params.emergencyId)
     .then((EmergencyDetails) => {
