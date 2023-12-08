@@ -5,9 +5,9 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Living = require("../models/living.model");
 router.use(isAuthenticated);
 // POST /personal/
-router.post("/personal", (req, res, next) => {
+router.post("/", (req, res, next) => {
   Personal.create({
-    caseName: req.body.caseName,
+    title: req.body.title,
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,
@@ -22,9 +22,9 @@ router.post("/personal", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  Living.find({})
+  Personal.find({})
     .then((Personal) => {
-      console.log("Retrieved Emergency: ", Personal);
+      console.log("Retrieved Personal: ", Personal);
       res.json(Personal);
     })
     .catch((error) => {

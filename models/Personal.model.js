@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PersonalSchema = new Schema({
-  caseName: String,
+  title: String,
   inDate: Date,
   outDate: Date,
   income: Number,
