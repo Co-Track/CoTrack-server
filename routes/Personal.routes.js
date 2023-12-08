@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Personal = require("../models/personal.model");
-
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+const Living = require("../models/living.model");
+router.use(isAuthenticated);
 // POST /personal/
 router.post("/personal", (req, res, next) => {
   Personal.create({
@@ -19,7 +21,7 @@ router.post("/personal", (req, res, next) => {
     });
 });
 
-router.get("/personal", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Living.find({})
     .then((Personal) => {
       console.log("Retrieved Emergency: ", Personal);
