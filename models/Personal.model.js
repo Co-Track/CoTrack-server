@@ -9,5 +9,5 @@ const PersonalSchema = new Schema({
   outCome: Number,
 });
 
-const Personal = mongoose.model("Personal", PersonalSchema);
-module.exports = Personal;
+const personal = mongoose.model("personal", PersonalSchema);
+module.exports = personal;

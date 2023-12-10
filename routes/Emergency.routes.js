@@ -31,10 +31,10 @@ router.get("/emergency", (req, res, next) => {
 });
 
 router.get("/emergency/:emergencyId", (req, res, next) => {
-  Cohort.find({ _id: req.params.emergencyId })
+    emergency.find({ _id: req.params.emergencyId })
     .populate("Living")
-    .then((EmergencyDetails) => {
-      res.json(EmergencyDetails);
+    .then((emergencyDetails) => {
+      res.json(emergencyDetails);
     })
     .catch((error) => {
       next(error);
@@ -42,9 +42,9 @@ router.get("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.put("/emergency/:emergencyId", (req, res, next) => {
-  Emergency.findByIdAndUpdate(req.params.emergencyId)
-    .then((EmergencyDetails) => {
-      res.json(EmergencyDetails);
+  emergency.findByIdAndUpdate(req.params.emergencyId)
+    .then((emergencyDetails) => {
+      res.json(emergencyDetails);
     })
     .catch((error) => {
       next(error);
@@ -52,9 +52,9 @@ router.put("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.delete("/emergency/:emergencyId", (req, res, next) => {
-  Living.findByIdAndDelete(req.params.emergencyId)
-    .then((EmergencyDetails) => {
-      res.json(EmergencyDetails);
+    emergency.findByIdAndDelete(req.params.emergencyId)
+    .then((emergencyDetails) => {
+      res.json(emergencyDetails);
     })
     .catch((error) => {
       next(error);
