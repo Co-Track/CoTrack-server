@@ -1,8 +1,4 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
-const Emergency = require("../models/emergency.model");
-const Living = require("../models/living.model");
-const Personal = require("../models/personal.model");
 
 router.post("/mainPage", (req, res, next) => {
   MainPage.create({

@@ -1,9 +1,8 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const Emergency = require("../models/emergency.model");
-const Living = require("../models/living.model");
+const Emergency = require("../models/Emergency.model");
 
-router.post("/", (req, res, next) => {
+router.post("/emergency", (req, res, next) => {
   Emergency.create({
     caseName: req.body.caseName,
     inDate: req.body.inDate,
@@ -31,10 +30,10 @@ router.get("/emergency", (req, res, next) => {
 });
 
 router.get("/emergency/:emergencyId", (req, res, next) => {
-    emergency.find({ _id: req.params.emergencyId })
+    Emergency.find({ _id: req.params.emergencyId })
     .populate("Living")
-    .then((emergencyDetails) => {
-      res.json(emergencyDetails);
+    .then((EmergencyDetails) => {
+      res.json(EmergencyDetails);
     })
     .catch((error) => {
       next(error);
@@ -42,9 +41,9 @@ router.get("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.put("/emergency/:emergencyId", (req, res, next) => {
-  emergency.findByIdAndUpdate(req.params.emergencyId)
-    .then((emergencyDetails) => {
-      res.json(emergencyDetails);
+  Emergency.findByIdAndUpdate(req.params.emergencyId)
+    .then((EmergencyDetails) => {
+      res.json(EmergencyDetails);
     })
     .catch((error) => {
       next(error);
@@ -52,9 +51,9 @@ router.put("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.delete("/emergency/:emergencyId", (req, res, next) => {
-    emergency.findByIdAndDelete(req.params.emergencyId)
-    .then((emergencyDetails) => {
-      res.json(emergencyDetails);
+    Emergency.findByIdAndDelete(req.params.emergencyId)
+    .then((EmergencyDetails) => {
+      res.json(EmergencyDetails);
     })
     .catch((error) => {
       next(error);

@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
-const Living = require("../models/living.model");
+const Living = require("../models/Living.model");
 
-router.post("/", (req, res, next) => {
+router.post("/living", (req, res, next) => {
   Living.create({
     caseName: req.body.caseName,
     inDate: req.body.inDate,
@@ -19,7 +19,7 @@ router.post("/", (req, res, next) => {
     });
 });
 
-router.get("/", (req, res, next) => {
+router.get("/living", (req, res, next) => {
   Living.find({})
     .then((Living) => {
       console.log("Retrieved Emergency: ", Living);
@@ -30,7 +30,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/:livingId", (req, res, next) => {
+router.get("living/:livingId", (req, res, next) => {
   Living.find({ _id: req.params.livingId })
     .populate("Living")
     .then((LivingDetails) => {
@@ -41,7 +41,7 @@ router.get("/:livingId", (req, res, next) => {
     });
 });
 
-router.put("/:livingId", (req, res, next) => {
+router.put("living/:livingId", (req, res, next) => {
   Living.findByIdAndUpdate(req.params.livingId)
     .then((LivingDetails) => {
       res.json(LivingDetails);
@@ -51,7 +51,7 @@ router.put("/:livingId", (req, res, next) => {
     });
 });
 
-router.delete("/:livingId", (req, res, next) => {
+router.delete("living/:livingId", (req, res, next) => {
   Living.findByIdAndDelete(req.params.livingId)
     .then((LivingDetails) => {
       res.json(LivingDetails);
