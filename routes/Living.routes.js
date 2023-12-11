@@ -30,7 +30,7 @@ router.get("/living", (req, res, next) => {
     });
 });
 
-router.get("living/:livingId", (req, res, next) => {
+router.get("/living/:livingId", (req, res, next) => {
   Living.find({ _id: req.params.livingId })
     .populate("Living")
     .then((LivingDetails) => {
@@ -41,7 +41,7 @@ router.get("living/:livingId", (req, res, next) => {
     });
 });
 
-router.put("living/:livingId", (req, res, next) => {
+router.put("/living/:livingId", (req, res, next) => {
   Living.findByIdAndUpdate(req.params.livingId)
     .then((LivingDetails) => {
       res.json(LivingDetails);
@@ -51,7 +51,7 @@ router.put("living/:livingId", (req, res, next) => {
     });
 });
 
-router.delete("living/:livingId", (req, res, next) => {
+router.delete("/living/:livingId", (req, res, next) => {
   Living.findByIdAndDelete(req.params.livingId)
     .then((LivingDetails) => {
       res.json(LivingDetails);
@@ -60,5 +60,4 @@ router.delete("living/:livingId", (req, res, next) => {
       next(error);
     });
 });
-
 module.exports = router;
