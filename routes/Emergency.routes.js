@@ -32,9 +32,9 @@ router.get("/emergency", (req, res, next) => {
 });
 
 router.get("/emergency/:emergencyId", (req, res, next) => {
-  Emergency.find({ _id: req.params.emergencyId })
-    .populate("Living")
+  Emergency.findOne({ _id: req.params.emergencyId })
     .then((EmergencyDetails) => {
+      console.log({ EmergencyDetails });
       res.json(EmergencyDetails);
     })
     .catch((error) => {
@@ -43,8 +43,18 @@ router.get("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.put("/emergency/:emergencyId", (req, res, next) => {
-  Emergency.findByIdAndUpdate(req.params.emergencyId)
+  console.log(req.body);
+  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const newData = {
+    title,
+    inDate,
+    outDate,
+    inCome,
+    outCome,
+  };
+  Emergency.findByIdAndUpdate(req.params.emergencyId,newData, { new: true })
     .then((EmergencyDetails) => {
+      console.log(EmergencyDetails);
       res.json(EmergencyDetails);
     })
     .catch((error) => {
