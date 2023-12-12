@@ -1,20 +1,17 @@
-const express = require("express");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
-const { isAuthenticated } = require("./middleware/jwt.middleware");
+// ℹ️ Gets access to environment variables/settings
+// https://www.npmjs.com/package/dotenv
 require("dotenv").config();
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then((x) => console.log(`Connected to Database: "${x.connections[0].name}"`))
-  .catch((err) => console.error("Error connecting to MongoDB ", err));
+// ℹ️ Connects to the database
+require("./db");
+
+// Handles http requests (express is node js framework)
+// https://www.npmjs.com/package/express
+const express = require("express");
 
 const app = express();
 
 require("./config")(app);
-
-app.use(morgan("dev"));
-app.use(express.static("public"));
 
 app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
