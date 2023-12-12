@@ -13,7 +13,7 @@ router.post("/emergency", (req, res, next) => {
     outCome: req.body.outCome,
   })
     .then(() => {
-      res.send("A Emergency was created!");
+      res.send("An Emergency was created!");
     })
     .catch((error) => {
       next(error);

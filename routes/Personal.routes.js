@@ -4,7 +4,6 @@ const Personal = require("../models/Personal.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 router.use(isAuthenticated);
-// POST /personal/
 
 router.post("/personal", (req, res, next) => {
   Personal.create({
@@ -46,6 +45,7 @@ router.get("/personal/:personalId", (req, res, next) => {
 
 router.put("/personal/:personalId", (req, res, next) => {
   console.log(req.body);
+
   const { title, inDate, outDate, inCome, outCome } = req.body;
   const newData = {
     title,

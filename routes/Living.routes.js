@@ -14,8 +14,8 @@ router.post("/living", (req, res, next) => {
     outCome: req.body.outCome,
   })
 
-    .then((createdLiving) => {
-      res.status(201).json(createdLiving);
+    .then(() => {
+      res.send("A Living was created!");
     })
     .catch((error) => {
       next(error);
@@ -25,7 +25,7 @@ router.post("/living", (req, res, next) => {
 router.get("/living", (req, res, next) => {
   Living.find({})
     .then((Living) => {
-      console.log("Retrieved Emergency: ", Living);
+      console.log("Retrieved Living: ", Living);
       res.json(Living);
     })
     .catch((error) => {
@@ -34,9 +34,9 @@ router.get("/living", (req, res, next) => {
 });
 
 router.get("/living/:livingId", (req, res, next) => {
-  Living.find({ _id: req.params.livingId })
-    .populate("Living")
+  Living.findOne({ _id: req.params.livingId })
     .then((LivingDetails) => {
+      console.log({ LivingDetails });
       res.json(LivingDetails);
     })
     .catch((error) => {
@@ -45,8 +45,20 @@ router.get("/living/:livingId", (req, res, next) => {
 });
 
 router.put("/living/:livingId", (req, res, next) => {
-  Living.findByIdAndUpdate(req.params.livingId)
+  console.log(req.body);
+
+  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const newData = {
+    title,
+    inDate,
+    outDate,
+    inCome,
+    outCome,
+  };
+
+  Living.findByIdAndUpdate(req.params.livingId, newData, { new: true })
     .then((LivingDetails) => {
+      console.log(LivingDetails);
       res.json(LivingDetails);
     })
     .catch((error) => {
