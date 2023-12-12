@@ -2,8 +2,10 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const Personal = require("../models/Personal.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
+
 router.use(isAuthenticated);
 // POST /personal/
+
 router.post("/personal", (req, res, next) => {
   Personal.create({
     title: req.body.title,
@@ -32,9 +34,9 @@ router.get("/personal", (req, res, next) => {
 });
 
 router.get("/personal/:personalId", (req, res, next) => {
-  Personal.find({ _id: req.params.personalId })
-    .populate("Personal")
+  Personal.findOne({ _id: req.params.personalId })
     .then((PersonalDetails) => {
+      console.log({ PersonalDetails });
       res.json(PersonalDetails);
     })
     .catch((error) => {
@@ -43,8 +45,18 @@ router.get("/personal/:personalId", (req, res, next) => {
 });
 
 router.put("/personal/:personalId", (req, res, next) => {
-  Personal.findByIdAndUpdate(req.params.personalId)
+  console.log(req.body);
+  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const newData = {
+    title,
+    inDate,
+    outDate,
+    inCome,
+    outCome,
+  };
+  Personal.findByIdAndUpdate(req.params.personalId, newData, { new: true })
     .then((PersonalDetails) => {
+      console.log(PersonalDetails);
       res.json(PersonalDetails);
     })
     .catch((error) => {

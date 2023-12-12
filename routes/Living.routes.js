@@ -7,7 +7,7 @@ router.use(isAuthenticated);
 
 router.post("/living", (req, res, next) => {
   Living.create({
-    caseName: req.body.caseName,
+    title: req.body.title,
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,

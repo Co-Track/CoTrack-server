@@ -6,7 +6,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 router.use(isAuthenticated);
 router.post("/emergency", (req, res, next) => {
   Emergency.create({
-    caseName: req.body.caseName,
+    title: req.body.title,
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,
