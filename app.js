@@ -23,7 +23,7 @@ app.get("/docs", (req, res) => {
 // 👇 Start handling routes here
 app.use("/auth", require("./routes/auth.routes"));
 app.use("/api", require("./routes/index.routes"));
-app.use("/", isAuthenticated, require("./routes/living.routes"));
+app.use("/", isAuthenticated, require("./routes/Living.routes"));
 app.use("/", require("./routes/Personal.routes"));
 app.use("/", isAuthenticated, require("./routes/Emergency.routes"));
 
