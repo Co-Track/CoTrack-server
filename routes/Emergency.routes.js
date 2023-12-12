@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Emergency = require("../models/Emergency.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 
+router.use(isAuthenticated);
 router.post("/emergency", (req, res, next) => {
   Emergency.create({
     caseName: req.body.caseName,
@@ -30,7 +32,7 @@ router.get("/emergency", (req, res, next) => {
 });
 
 router.get("/emergency/:emergencyId", (req, res, next) => {
-    Emergency.find({ _id: req.params.emergencyId })
+  Emergency.find({ _id: req.params.emergencyId })
     .populate("Living")
     .then((EmergencyDetails) => {
       res.json(EmergencyDetails);
@@ -51,7 +53,7 @@ router.put("/emergency/:emergencyId", (req, res, next) => {
 });
 
 router.delete("/emergency/:emergencyId", (req, res, next) => {
-    Emergency.findByIdAndDelete(req.params.emergencyId)
+  Emergency.findByIdAndDelete(req.params.emergencyId)
     .then((EmergencyDetails) => {
       res.json(EmergencyDetails);
     })

@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Living = require("../models/Living.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+
+router.use(isAuthenticated);
 
 router.post("/living", (req, res, next) => {
   Living.create({
