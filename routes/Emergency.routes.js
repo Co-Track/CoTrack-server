@@ -4,13 +4,14 @@ const Emergency = require("../models/Emergency.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 router.use(isAuthenticated);
+
 router.post("/emergency", (req, res, next) => {
   Emergency.create({
     title: req.body.title,
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,
-    outCome: req.body.outCome,
+    outcome: req.body.outcome,
   })
     .then(() => {
       res.send("An Emergency was created!");
@@ -44,15 +45,15 @@ router.get("/emergency/:emergencyId", (req, res, next) => {
 
 router.put("/emergency/:emergencyId", (req, res, next) => {
   console.log(req.body);
-  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const { title, inDate, outDate, income, outcome } = req.body;
   const newData = {
     title,
     inDate,
     outDate,
-    inCome,
-    outCome,
+    income,
+    outcome,
   };
-  Emergency.findByIdAndUpdate(req.params.emergencyId,newData, { new: true })
+  Emergency.findByIdAndUpdate(req.params.emergencyId, newData, { new: true })
     .then((EmergencyDetails) => {
       console.log(EmergencyDetails);
       res.json(EmergencyDetails);
