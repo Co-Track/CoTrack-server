@@ -11,7 +11,7 @@ router.post("/living", (req, res, next) => {
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,
-    outCome: req.body.outCome,
+    outcome: req.body.outcome,
   })
 
     .then(() => {
@@ -47,13 +47,13 @@ router.get("/living/:livingId", (req, res, next) => {
 router.put("/living/:livingId", (req, res, next) => {
   console.log(req.body);
 
-  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const { title, inDate, outDate, income, outcome } = req.body;
   const newData = {
     title,
     inDate,
     outDate,
-    inCome,
-    outCome,
+    income,
+    outcome,
   };
 
   Living.findByIdAndUpdate(req.params.livingId, newData, { new: true })

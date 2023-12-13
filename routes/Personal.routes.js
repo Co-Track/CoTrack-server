@@ -11,7 +11,7 @@ router.post("/personal", (req, res, next) => {
     inDate: req.body.inDate,
     outDate: req.body.outDate,
     income: req.body.income,
-    outCome: req.body.outCome,
+    outcome: req.body.outcome,
   })
     .then(() => {
       res.send("A Personal was created!");
@@ -46,13 +46,13 @@ router.get("/personal/:personalId", (req, res, next) => {
 router.put("/personal/:personalId", (req, res, next) => {
   console.log(req.body);
 
-  const { title, inDate, outDate, inCome, outCome } = req.body;
+  const { title, inDate, outDate, income, outcome } = req.body;
   const newData = {
     title,
     inDate,
     outDate,
-    inCome,
-    outCome,
+    income,
+    outcome,
   };
   Personal.findByIdAndUpdate(req.params.personalId, newData, { new: true })
     .then((PersonalDetails) => {
