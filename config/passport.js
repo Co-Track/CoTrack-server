@@ -10,8 +10,7 @@ passport.use(
       callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      // Here you would find or create a user in your database
-      // For now, we'll just return the profile
+      // You should replace this with a real database user lookup and save
       return done(null, profile);
     }
   )

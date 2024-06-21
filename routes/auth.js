@@ -19,7 +19,7 @@ router.get(
     const token = jwt.sign({ user: req.user }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.redirect(`/auth/success?token=${token}`);
+    res.redirect(`${process.env.ORIGIN}/auth/success?token=${token}`);
   }
 );
 
